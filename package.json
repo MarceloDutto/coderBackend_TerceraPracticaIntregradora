@@ -1,0 +1,40 @@
+{
+  "name": "tercerapracticaintegradora",
+  "version": "1.0.0",
+  "description": "Tercera practica integradora del curso sobre Backend de CoderHouse",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:dev": "nodemon src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MarceloDutto/coderBackend_TerceraPracticaIntregradora.git"
+  },
+  "keywords": [],
+  "author": "Marcelo Dutto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MarceloDutto/coderBackend_TerceraPracticaIntregradora/issues"
+  },
+  "homepage": "https://github.com/MarceloDutto/coderBackend_TerceraPracticaIntregradora#readme",
+  "dependencies": {
+    "@faker-js/faker": "^7.6.0",
+    "bcrypt": "^5.1.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.1.0",
+    "mongoose-paginate-v2": "^1.7.1",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.6.0",
+    "passport-github2": "^0.1.12",
+    "passport-jwt": "^4.0.1",
+    "socket.io": "^4.6.1",
+    "uuid": "^9.0.0",
+    "winston": "^3.8.2"
+  }
+}
