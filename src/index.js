@@ -7,6 +7,7 @@ import config from './config/index.js';
 import initializePassport from './config/passport.config.js';
 import addLogger from './middlewares/logger.middlewares.js';
 import router from './router/index.js';
+import MongoConnection from '../db/mongo.db.js';
 
 
 const app = express();
@@ -24,6 +25,8 @@ app.use(addLogger);
 
 initializePassport();
 app.use(passport.initialize());
+
+MongoConnection.getInstance();
 
 router(app);
 
