@@ -1,0 +1,10 @@
+error: undefined
+error: undefined {"kind":"ObjectId","path":"_id","reason":{},"stringValue":"\"059f324e-3be1-45c6-984d-988433b525d2\"","value":"059f324e-3be1-45c6-984d-988433b525d2","valueType":"string"}
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: undefined
+error: Mensaje de tipo error de logger
+fatal: Mensaje de tipo fatal de logger

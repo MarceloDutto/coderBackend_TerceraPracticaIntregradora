@@ -1,6 +1,6 @@
 import productsController from "../products/controller.products.js";
 import cartsController from "../carts/controller.carts.js";
-import usersController from "../users/users.controller.js";
+import usersController from "../users/controller.users.js";
 import authController from "../auth/controller.auth.js";
 import mockingController from "../faker/controller.faker.js";
 import loggerController from "../winston/controller.winston.js";
