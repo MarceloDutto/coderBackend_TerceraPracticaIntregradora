@@ -50,3 +50,13 @@ export const findUserById = async (idRef) => {
         throw error;
     }
 };
+
+export const updateUser = async (idRef, update) => {
+    try {
+        const response = await um.update(idRef, update);
+        const newUserInfo = new UserDTO(response);
+        return {status: 'success', payload: newUserInfo, message: 'Usario actualizado con éxito'};
+    } catch(error) {
+        throw error;
+    }
+};

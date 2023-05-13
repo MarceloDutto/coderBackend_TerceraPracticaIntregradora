@@ -7,6 +7,7 @@ class UserManager {
             const newUser = await User.create(newUserInfo);
             return newUser;
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -16,6 +17,7 @@ class UserManager {
             const user = await User.findOne(query);
             return user? user : {}
         } catch(error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -25,6 +27,17 @@ class UserManager {
             const user = await User.findById(idRef);
             return user? user : {};
         } catch(error) {
+            req.logger.error(error);
+            throw error;
+        }
+    };
+
+    update = async (idRef, update) => {
+        try {
+            await User.findByIdAndUpdate(idRef, update)
+            return update;
+        } catch(error) {
+            req.logger.error(error);
             throw error;
         }
     };

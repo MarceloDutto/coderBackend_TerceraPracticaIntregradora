@@ -1,0 +1,28 @@
+<div class="product-container">
+    {{#if showProduct}}
+        <div class="product-image">
+            <img src="{{thumbnail}}" alt="">
+        </div>
+        <div class="product-info">
+            <p class="product-features"><strong>Nombre: {{name}}</strong></p>
+            <p class="product-features">Características: {{description}}</p>
+            <p class="product-features">Categoría: {{category}}</p>
+            <p class="product-features">Precio: {{price}}</p>
+            <p class="product-features">Disponible: {{stock}} unidades</p>
+        </div>
+        <div class="actions">
+            <button class="cartButton" id="{{id}}">Agregar al carrito</button>
+        </div>
+    {{else}}
+        <p class="error-text">¡Lo sentimos! Momentámeamente no podemos mostrarte este producto. Regresa más tarde. 😔</p>
+    {{/if}}
+
+    <div class="button-container">
+        <a href="/products" ><button class="navButton">Ver los productos</button></a>
+        <a href="" class="goToCartButton" id="{{user.cart}}"><button class="navButton">Ir al carrito</button></a>  
+        <a href="/profile"><button class="navButton">Ver mi perfil</button></a>
+        <a href="/chat" ><button class="navButton">Ir al chat</button></a>
+    </div>
+</div>
+
+<script src="/js/details.js"></script>

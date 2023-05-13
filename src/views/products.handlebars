@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="navButton-container">
+        <a href="/profile" ><button class="navButton">Ver mi perfil</button></a> 
+        <a href="" class="goToCartButton" id="{{user.cart}}"><button class="navButton">Ir al carrito</button></a> 
+        <a href="/chat" ><button class="navButton">Ir al chat</button></a> 
+    </div>
+    <h1 class="title">¡Bienvenid@, {{user.first_name}}! Estos son los productos que tenemos disponibles.</h1>
+
+    <div class="products-container">
+        {{#if showProducts}}
+            {{#each products}}
+                <div class="card">
+                    <div class="product-image">
+                        <img src="{{this.thumbnail}}" alt="">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-features"><strong>Nombre: {{this.name}}</strong></p>
+                        <p class="product-features">Precio: {{this.price}}</p>
+                    </div>
+                    <div class="actions">
+                        <a href="/products/details/{{this.id}}"><button class="action">Ver detalles</button></a> 
+                        <button class="cartButton" id="{{this.id}}">Agregar al carrito</button>
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p class="error-text">¡Lo sentimos! Temporalmente no podemos mostrarte nuestros productos. Regresa más tarde. 😔</p>
+        {{/if}}
+    </div>
+    <div class="button-container">
+        {{#if showProducts}}
+        <div>
+            <a href="{{prevPageLink}}" class="button" id="prevButton">
+                << Pagina anterior
+            </a>
+        </div>
+        <div>
+            <a href="{{nextPageLink}}" class="button" id="nextButton">
+                Pagina siguiente >>
+            </a>
+        </div>
+        {{else}}
+            <div></div>
+        {{/if}}
+    </div>   
+</div>
+
+<script src="/js/products.js"></script>

@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="navButton-container">
+        <a href="/profile" ><button class="navButton">Ver mi perfil</button></a>
+        <a href="/products"><button class="navButton">Ir a productos</button></a> 
+        <a href="" class="goToCartButton" id="{{user.cart}}"><button class="navButton">Ir al carrito</button></a>
+    </div>
+    <h1 class="title">¡Hola, {{user.first_name}}! Bienvenido al CHAT.</h1>
+
+    <div class="chat-container" id="{{user.first_name}}">
+        <div class="chat-box">
+            <label for="chatBox">Ingrese su mensaje:</label>
+            <input id="chatBox">
+        </div>
+        <div class="line"></div>
+        <div class="chat-log">
+            <p class="placeholder">Mensajes del chat...</p>
+            <p id="messageLogs"></p>
+        </div>
+    </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/chat.js"></script>

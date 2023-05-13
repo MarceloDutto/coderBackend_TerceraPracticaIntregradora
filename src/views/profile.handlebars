@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="page-title">
+        <h1>Mi perfil</h1>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-image">
+            <img src="/img/profile/profile.png" alt="profile picture">
+        </div>
+
+        <div class="profile-info">
+            <div>
+                <p class="info-p">{{user.first_name}} {{user.last_name}}</p>
+                <p class="info-p info-role">{{user.role}}</p>
+            </div>
+            <div>
+                <p class="info-p">{{user.email}}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="/products" ><button class="navButton">Ver los productos</button></a>
+        <a href="/chat" ><button class="navButton">Ir al chat</button></a>  
+        {{!-- <a href="/api/auth/logout"><button class="navButton">Cerrar sesión</button></a> --}}
+    </div>
+</div>

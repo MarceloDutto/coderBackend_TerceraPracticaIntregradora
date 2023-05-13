@@ -22,6 +22,7 @@ class ProductManager {
             } 
             return response;
         } catch(error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -32,6 +33,7 @@ class ProductManager {
             if(!data) return {}
             return data;
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -42,6 +44,7 @@ class ProductManager {
             if(!data) return {};
             return data;
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -51,6 +54,7 @@ class ProductManager {
             const newProduct = await Product.create(info);
             return newProduct;
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -60,6 +64,7 @@ class ProductManager {
             await Product.findByIdAndUpdate(idRef, product);
             return product;
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -69,6 +74,7 @@ class ProductManager {
             await Product.findByIdAndDelete(idRef);
             return 'Producto eliminado de la base de datos';
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };
@@ -78,6 +84,7 @@ class ProductManager {
             await Product.deleteMany();
             return 'Todos los productos fueron eliminados';
         } catch (error) {
+            req.logger.error(error);
             throw error;
         }
     };

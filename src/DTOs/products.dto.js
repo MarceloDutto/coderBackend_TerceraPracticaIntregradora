@@ -6,7 +6,12 @@ export default class productsDTO {
         this.category = doc.category,
         this.code = doc.code,
         this.stock = doc.stock,
-        this.price = doc.price,
+        this.price = doc.price.toLocaleString('es-AR', {
+            style: 'currency',
+            currency: 'ARS',
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          }),
         this.thumbnail = doc.thumbnail,
         this.owner = doc.owner
     }

@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+  
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #F7F8F3;
+}
+
+
+.page-title {
+width: 100%;
+padding: 20px;
+display: flex;
+justify-content: center;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.profile-container {
+    padding: 15px;
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+.profile-image {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.profile-image img {
+    width: 130px;
+    object-fit: cover;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+    border-radius: 50%;
+}
+
+.profile-info {
+display: flex;
+flex-direction: column;
+justify-content: center;
+text-align: center;
+}
+
+.info-p {
+font-size: 1.9rem;
+font-weight: 600;
+padding-bottom: 2px;
+}
+
+.info-role {
+    font-size: 1.7rem;
+    font-weight: 400;
+    color: rgb(255, 81, 0);
+    padding-bottom: 15px;
+}
+
+.button-container {
+    padding: 15px;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.navButton {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.6rem;
+    padding: 5px;
+    margin: 0 8px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+    background-color: #012C3D;
+    color: #F7F8F3;
+}
+
+.navButton:hover {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    cursor: pointer;    
+}

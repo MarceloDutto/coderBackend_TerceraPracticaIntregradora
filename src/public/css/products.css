@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+  
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #F7F8F3;
+}
+
+.navButton-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
+.navButton {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.6rem;
+    padding: 8px;
+    margin: 0 8px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+    background-color: #012C3D;
+    color: #F7F8F3;
+}
+
+.navButton:hover {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    cursor: pointer;    
+}
+
+.title {
+    font-size: 3.8rem;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+
+}
+
+.products-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-bottom: 25px;
+    border: 1px solid #012C3D;
+    border-radius: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 15px;
+}
+
+.product-image img {
+    width: 100%;
+    object-fit: cover;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.product-features {
+    font-size: 1.6rem;
+    margin-bottom: 5px;
+}
+
+.actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 3px;
+}
+
+.action, .cartButton {
+ font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ font-size: 1.6rem;
+ padding: 8px;
+ margin: 0 8px;
+ background-color: #F7F8F3;
+ color: #012C3D;
+ border: 1px solid #012C3D;
+ border-radius: 8px;
+ box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+}
+
+.action:hover, .cartButton:hover {
+    background-color: #012C3D;
+    color: #F7F8F3;
+    cursor: pointer;
+}
+.error-text {
+    font-size: 2.5rem;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.button {
+    text-decoration: none;
+    color: #012C3D;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.8rem;
+    padding: 5px; 
+    border-radius: 5px;
+}
+
+.button:hover {
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+}

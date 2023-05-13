@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="navButton-container">
+        <a href="/profile" ><button class="navButton">Ver mi perfil</button></a>
+        <a href="/products"><button class="navButton">Ir a productos</button></a> 
+        <a href="/chat" ><button class="navButton">Ir al chat</button></a>
+    </div>
+    <h1 class="page-title">Este es tu carrito</h1>
+
+    <div class="products-container">
+        {{#if showProducts}}
+            {{#each products}}
+                <div class="product-row">
+                    <div class="product-image">
+                        <img src="{{this.product.thumbnail}}" alt="">
+                    </div>
+                    <div class="product-info">
+                        <p class="product-features"><strong>Nombre: {{this.product.name}}</strong></p>
+                        <p class="product-features">Cantidad: {{this.quantity}}</p>
+                        <p class="product-features">Precio x unidad: {{this.product.price}}</p>
+                    </div>
+                </div>
+            {{/each}}
+        {{else}}
+            <p class="error-text">¡El carrito está vacío!</p>
+        {{/if}}
+    </div>
+</div>

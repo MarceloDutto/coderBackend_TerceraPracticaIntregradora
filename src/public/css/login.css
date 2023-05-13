@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+body {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+  
+.container {
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    background-color: #F7F8F3;
+}
+
+
+.page-title {
+width: 100%;
+padding: 20px;
+display: flex;
+justify-content: center;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.form-container {
+    width: 40%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    font-size: 1.7rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+}
+
+input {
+    height: 32px;
+    width: 300px;
+    display: block;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    padding: 5px;
+}
+ 
+.submitButton {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.6rem;
+    padding: 4px;
+    border-radius: 8px;
+    box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.2);
+    background-color: #012C3D;
+    color: #F7F8F3;
+}
+
+
+.submitButton:hover {
+    background-color: #F7F8F3;
+    color: #012C3D;
+    cursor: pointer;    
+}
+
+.foot {
+    width: 30%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.p-info {
+    font-size: 1.6rem;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+.line {
+    height: 1px;
+    width: 330px;
+    opacity: 30%;
+    background-color: #012C3D;
+    margin-bottom: 20px;
+}
+
+.loginDiv {
+    width: 40%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 25px;
+}
+
+.loginButton {
+    width: 300px;
+    height: 60px;
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: .5px solid #012C3D;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.loginGithubImg {
+    position: absolute;
+    width: 140px;
+    object-fit: cover;
+}
+
+.loginButton:hover {
+    border: 1.5px solid #012C3D;
+    background-color: #f7f8f3d2;
+    box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.2);
+}

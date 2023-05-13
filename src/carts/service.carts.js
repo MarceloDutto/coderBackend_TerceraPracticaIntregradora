@@ -63,21 +63,20 @@ export const updateProductsfromCart = async (cidRef, products) => {
         const cart = await cm.getById(cidRef);
         if(Object.keys(cart).length === 0 ) return {status: 'failed', message: 'No se encontró el carrito'};
 
-        let updateIsValid = true;
+        let invalidProducts = [];
 
-        products.forEach(async prod => {
-            let id = prod.product.id;
-
+        for (let i = 0; i < products.length; i++) {
             try {
-                const response = await pm.getById(id);
-                console.log(response)
-                if(Object.keys(response).length === 0) updateIsValid = false;
+              let id = products[i].product.id;
+              const response = await pm.getById(id);
+          
+              if (Object.keys(response).length !== 0) invalidProducts.push(response);
             } catch (error) {
-                throw error;
+              throw error;
             }
-        });
-
-        if(updateIsValid) {
+          }
+        
+        if(invalidProducts.length === 0) {
             cart.products = products;
             await cm.update(cidRef, cart);
             return {message: 'Productos del carrito actualizados'};
