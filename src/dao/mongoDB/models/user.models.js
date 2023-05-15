@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const userCollection = 'users';
+const userTypes = ['user', 'premium', 'admin'];
 
 const userSchema = new mongoose.Schema({
     first_name: String,
@@ -14,8 +15,16 @@ const userSchema = new mongoose.Schema({
     cart: String,
     role: {
         type: String,
-        enum: ['user', 'premium', 'admin'],
-        default: 'user'
+        enum: userTypes,
+        default: 'user',
+    },
+    recoveryToken: {
+        type: String,
+        default: ''
+    },
+    recoveryTokenExpiration: {
+        type: String,
+        default: ''
     }
 });
 

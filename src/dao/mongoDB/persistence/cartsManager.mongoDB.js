@@ -7,7 +7,6 @@ class CartManager {
             const data = await Cart.find();
             return data
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -17,7 +16,6 @@ class CartManager {
             const data = await Cart.findOne({_id: idRef});
             return data? data : {};
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -27,7 +25,6 @@ class CartManager {
             const newCart = await Cart.create({products: []});
             return newCart;
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -37,7 +34,6 @@ class CartManager {
             const index = await cart.products.findIndex(prod => prod.product.equals(pid));
             return index;
         } catch(error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -46,7 +42,6 @@ class CartManager {
         try {
             await Cart.updateOne({_id: cidRef}, update);
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -56,7 +51,6 @@ class CartManager {
             await Cart.findByIdAndDelete(cidRef);
             return 'Carrito eliminado de la base de datos';
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -66,7 +60,6 @@ class CartManager {
             await Cart.deleteMany();
             return 'Todos los carritos fueron eliminados';
         } catch (error) {
-            req.logger.error(error);
             throw error;
         }
     };

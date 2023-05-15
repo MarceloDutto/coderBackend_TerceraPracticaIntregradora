@@ -83,12 +83,40 @@ input {
 }
 
 .p-info {
-    font-size: 1.6rem;
+    font-size: 1.7rem;
+}
+
+.p-link {
+    font-size: 1.7rem;
+    color: blue;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.p-link:hover {
+    text-decoration: underline;
 }
 
 a {
     text-decoration: none;
     color: blue;
+}
+
+.notification {
+    background-color: #ffffff;
+    box-shadow: 1px solid #012C3D;
+    border-radius: 4px;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    visibility: hidden;
+    overflow: hidden;
+}
+
+.p-notification {
+    font-size: 1.5rem;
+    color: rgb(255, 72, 0);
 }
 
 .line {

@@ -1,7 +1,7 @@
 import passport from "passport";
 import jwt from 'passport-jwt';
 import config from "./index.js";
-import cookieExtractor from "../utils/cookieExtractor.utils.js";
+import { cookieExtractor } from "../utils/cookieExtractor.utils.js";
 
 const { jwt_secret } = config.jwt;
 

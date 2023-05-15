@@ -23,7 +23,21 @@ router.get('/login', handlePolicies('PUBLIC'), (req, res) => {
     })
 });
 
-router.get('/profile', handlePolicies(['USER', 'ADMIN']), (req, res) => {
+router.get('/forgotPassword', handlePolicies('PUBLIC'), (req, res) => {
+    res.render('forgotPassword', {
+        title: 'Iniciar sesión',
+        style: 'forgot.css'
+    })
+});
+
+router.get('/resetPassword', handlePolicies('PUBLIC'), async (req, res) => {
+    res.render('resetPassword', {
+        title: 'Cambiar contraseña',
+        style: 'reset.css',
+    })
+});
+
+router.get('/profile', handlePolicies(['USER', 'PREMIUM', 'ADMIN']), (req, res) => {
     const user = req.user;
 
     res.render('profile', {
@@ -33,7 +47,7 @@ router.get('/profile', handlePolicies(['USER', 'ADMIN']), (req, res) => {
     })
 });
 
-router.get('/products', handlePolicies(['USER', 'ADMIN']), async (req, res) => {
+router.get('/products', handlePolicies(['USER', 'PREMIUM', 'ADMIN']), async (req, res) => {
     const limit = req.query.limit || 5;
     const page = req.query.page || 1;
     const query = req.query.query || null;
@@ -67,7 +81,7 @@ router.get('/products', handlePolicies(['USER', 'ADMIN']), async (req, res) => {
     }
 });
 
-router.get('/products/details/:pid', handlePolicies(['USER', 'ADMIN']), async (req, res) => {
+router.get('/products/details/:pid', handlePolicies(['USER', 'PREMIUM', 'ADMIN']), async (req, res) => {
     const { pid } = req.params;
     let showProduct = false;
     let product = {}
@@ -101,7 +115,7 @@ router.get('/products/details/:pid', handlePolicies(['USER', 'ADMIN']), async (r
     }
 });
 
-router.get('/cart/:cid', handlePolicies(['USER', 'ADMIN']), async (req, res) => {
+router.get('/cart/:cid', handlePolicies(['USER', 'PREMIUM', 'ADMIN']), async (req, res) => {
     const { cid } = req.params;
     let showProducts = false;
 
@@ -126,7 +140,7 @@ router.get('/cart/:cid', handlePolicies(['USER', 'ADMIN']), async (req, res) => 
 
 });
 
-router.get('/chat', handlePolicies('USER'), (req, res) => {
+router.get('/chat', handlePolicies('USER', 'PREMIUM', 'ADMIN'), (req, res) => {
     const user = req.user;
 
     res.render('chat', {

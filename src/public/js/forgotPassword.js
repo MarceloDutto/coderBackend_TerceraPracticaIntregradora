@@ -1,4 +1,4 @@
-const form = document.querySelector("#loginForm");
+const form = document.querySelector('#recoverPassword');
 const notification = document.querySelector('#notif');
 
 form.addEventListener('submit', e => {
@@ -9,11 +9,11 @@ form.addEventListener('submit', e => {
 
     data.forEach((value, key) => obj[key] = value);
 
-    const url = '/api/auth';
+    const url = '/api/auth/forgotPassword';
     const headers = {
         'Content-Type': 'application/json'
     }
-    const method = 'POST';
+    const method = 'POST'; 
     const body = JSON.stringify(obj);
 
     fetch(url, {
@@ -24,12 +24,8 @@ form.addEventListener('submit', e => {
     .then(response => response.json())
     .then(data => {
         console.log(data)
-        if(data.status !== 'success') {
-            notification.innerHTML = `<p class="p-notification" id="notification-text">${data.message? data.message : data.error}</p>`
-            notification.style.visibility = 'visible';
-        } else {
-            window.location.href = '/products'
-        }
+        notification.innerHTML = `<p class="p-notification" id="notification-text">${data.message? data.message : data.error}</p>`
+        notification.style.visibility = 'visible';
     })
     .catch(error => console.log(error))
 });

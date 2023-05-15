@@ -19,6 +19,12 @@ const config = {
     jwt: {
         jwt_secret: process.env.JWT_SECRET
     },
+    nodemailer: {
+        gmail_service: process.env.NODEMAILER_GMAIL_SERVICE,
+        gmail_port: process.env.NODEMAILER_GMAIL_PORT,
+        gmail_user: process.env.NODEMAILER_GMAIL_USER,
+        gmail_pass: process.env.NODEMAILER_GMAIL_PASS
+    },
     admin: {
         admin_email: process.env.ADMIN_EMAIL,
         admin_password: process.env.ADMIN_PASSWORD

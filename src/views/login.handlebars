@@ -7,18 +7,20 @@
         <form action="" id="loginForm">
             <div>
                 <label for="">Correo electrónico</label>
-                <input type="text" name="email" required>
+                <input type="email" name="email" required>
             </div>
             <div>
                 <label for="">Contraseña</label>
                 <input type="password" name="password" required>
             </div>
+            <div class="notification" id="notif"></div>
 
             <button class="submitButton" type="submit">Iniciar sesion</button>
         </form>
     </div>
 
     <div class="foot">
+        <a href="/forgotPassword"><p class="p-link">¿Olvidó su contraseña?</p></a> 
         <p class="p-info">¿No tenés cuenta? Registrate <a href="/signup">aquí</a>.</p>
     </div>
 </div>

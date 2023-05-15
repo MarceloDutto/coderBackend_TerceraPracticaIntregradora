@@ -26,6 +26,6 @@ export const deleteMessages = async () => {
         await chm.deleteMessages();
         return {message: 'Todos los mensajes eliminados de la base de datos'};
     } catch (error) {
-        throw error
+        throw error;
     }
 };

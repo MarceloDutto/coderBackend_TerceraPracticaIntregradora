@@ -51,6 +51,15 @@ export const findUserById = async (idRef) => {
     }
 };
 
+export const findByQuery = async (query) => {
+    try {
+        const user = await um.findByQuery(query);
+        return user;
+    } catch(error) {
+        throw error;
+    }
+};
+
 export const updateUser = async (idRef, update) => {
     try {
         const response = await um.update(idRef, update);

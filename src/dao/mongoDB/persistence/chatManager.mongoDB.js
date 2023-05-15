@@ -7,7 +7,6 @@ class ChatManager {
             const data = await Message.find();
             return data;
         } catch(error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -17,7 +16,6 @@ class ChatManager {
             const data = await Message.create(message);
             return data;
         } catch(error) {
-            req.logger.error(error);
             throw error;
         }
     };
@@ -26,7 +24,6 @@ class ChatManager {
         try {
             await Message.deleteMany();
         } catch(error) {
-            req.logger.error(error);
             throw error;
         }
     };
