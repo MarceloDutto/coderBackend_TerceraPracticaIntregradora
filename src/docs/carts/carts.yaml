@@ -1,0 +1,232 @@
+openapi: "3.0.1"
+info:
+  title: API de productos
+  version: "1.0"
+paths:
+  /api/carts/:
+    get:
+      summary: Se obtienen todos los carritos incluidos en la base de datos. 
+      tags:
+        - Carritos
+      responses: 
+        "200":
+          description: La consulta fue respondida satisfactoriamente, y se obtuvieron todos los carritos de la base de datos. En caso de que la base de datos no contuviera items, se retorna un objeto vacío con un mensaje de aviso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#components/schemas/Carts'
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    post:
+      summary: Crea y registra un carrito en la base de datos.
+      tags:
+       - Carritos
+      responses:
+        "201":
+          description: El carrito fue agregado exitosamente a la base de datos.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Carts'
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  /api/carts/{cid}:
+    get:
+      summary: Se obtiene un carrito de la base de datos a partir del id. 
+      tags:
+        - Carritos
+      parameters: 
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito sobre el que se quiere consultar.
+        schema:
+          $type: string 
+      responses: 
+        "200":
+          description: La consulta fue respondida satisfactoriamente, y se obtuvo un carrito de la base de datos partir de id. En caso de que la base de datos no contuviera items, se retorna un objeto vacío con un mensaje de aviso.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Carts'
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    put:
+      summary: Actualiza todos los productos contenidos en un carrito a partir de su id. Se requiere que el usario esté autenticado.
+      tags:
+       - Carritos
+      parameters: 
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito que se quiere actualizar.
+        schema:
+          $type: string 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateCart"
+      responses:
+        "200":
+          description: Los productos han sido validados y el carrito fue actualizado exitosamente. Si el carrito no existe o no contiene productos se envía un mensaje de aviso.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    delete:
+      summary: Elimina todos los productos del carrito a partir de su id. Se requiere que el usario esté autenticado.
+      tags:
+       - Carritos
+      parameters: 
+      - name: pid
+        in: path
+        required: true
+        description: Id del carrito del cual se quiere eliminar los productos. 
+        schema:
+          $type: string 
+      responses:
+        "200":
+          description: Todos los productos se eliminaron del carrito. Si el carrito no existe o no contiene productos se envía un mensaje de aviso.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  api/carts/:cid/purchase/:
+    get:
+      summary: Realiza el proceso de compra a partir del carrito a partir de su id. Se requiere que el usario esté autenticado.
+      tags: 
+       - Carritos
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito al cual se quiere aplicar la modificación. 
+        schema:
+          $type: string
+      responses:
+        "200":
+          description: La compra se realizó exitosamente. Si el carrito no existe en la base de datos o no contiene productos, se envía un mensaje de aviso.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  api/carts/{cid}/product/{pid}:
+    post:
+      summary: Agrega un producto al carrito. Se necesitan los ids tanto el del carrito, como el del producto. Se requiere que el usario esté autenticado.
+      tags: 
+        - Carritos
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito al cual se quiere agregar el producto. 
+        schema:
+          $type: string
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto que se quiere agregar al carrito. 
+        schema:
+          $type: string
+      responses:
+        "200":
+          description: El producto fue agregado exitosamente al carrito. Si el carrito o el producto no existen en la base de datos se envía un mensaje de aviso.
+        "400":
+          description: Error del cliente, generado porque se intentó agregar un producto creado por el usuario a su propio carrito.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    put:
+      summary: Modifica la cantidad de unidades de determinado producto de un carrito. Se necesitan los ids tanto el del carrito, como el del producto. Se requiere que el usario esté autenticado.
+      tags: 
+       - Carritos
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito al cual se quiere aplicar la modificación. 
+        schema:
+          $type: string
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto al cual se le quiere modificar la cantidad. 
+        schema:
+          $type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: "#components/requestBodies/updateProductQuantity"
+      responses:
+        "200":
+          description: La cantidad de unidades del producto del carrito fue modificada exitosamente.  Si el carrito o el producto no existen en la base de datos, o el producto no se encuentra en el carrito, se envía un mensaje de aviso.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    delete:
+      summary: Elimina un producto determinado del carrito. Se necesitan los ids tanto el del carrito, como el del producto. Se requiere que el usario esté autenticado.
+      tags:
+        - Carritos
+      parameters:
+      - name: cid
+        in: path
+        required: true
+        description: Id del carrito al cual se quiere aplicar la modificación. 
+        schema:
+          $type: string
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto al cual se le quiere modificar la cantidad. 
+        schema:
+          $type: string
+      responses:
+        "200":
+          description: El producto fue eliminado del carrito exitosamente. Si el carrito o el producto no existen en la base de datos, o el producto no se encuentra en el carrito, se envía un mensaje de aviso.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  
+components:
+  schemas:
+    Carts:
+      type: object
+      properties:
+        _id:
+          type: objectId
+          description: Id autogenerado de MongoDB.
+        products:
+          type: array
+          description: Lista de los productos contenidos en el carrito.
+      example:
+        _id: ObjectId('645ed4022ceae6abf4feafb7')
+        products: []
+  requestBodies:
+    updateCart:
+      type: object
+      properties:
+        products:
+          type: array
+          description: Array de productos que contiene el id y la cantidad de cada uno.
+      example:
+        products : [{
+          product: ObjectId('645ed4022ceae6abf4feafb7'),
+          quantity: 1
+        }]
+    updateProductQuantity:
+      type: object
+      properties:
+        quantity:
+          type: number
+          description: Cantidad de unidades actualizadas del producto.
+      example:
+        quantity: 3

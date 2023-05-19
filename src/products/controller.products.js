@@ -73,7 +73,7 @@ router.patch('/:pid', handlePolicies(['ADMIN', 'PREMIUM']), async (req, res) => 
     
     if(user.role !== 'admin') {
         const product = await getProductById(pid);
-        if(product.payload.owner !== user.email) return res.status(400).json({status: 'error', message: 'No está autorizado a modificar este producto'}); 
+        if(product.payload.owner !== user.email) return res.status(403).json({status: 'error', message: 'No está autorizado a modificar este producto'}); 
     };
 
     const updates = {

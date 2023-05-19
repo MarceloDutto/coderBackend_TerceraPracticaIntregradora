@@ -1,0 +1,227 @@
+openapi: "3.0.1"
+info:
+  title: API de productos
+  version: "1.0"
+paths:
+  /api/products/:
+    get:
+      summary: Se obtienen todos los productos incluidos en la base de datos. Los resultados se retornan paginados, con la posiilidad de configurar la cantidad de productos por página. La consulta permite ordenamiento y diferentes parámetros de búsqueda.
+      tags:
+        - Productos
+      responses: 
+        "200":
+          description: La consulta fue respondida satisfactoriamente, y se obtuvieron todos los productos de la base de datos. En caso de que la base de datos no contuviera items, se retorna un objeto vacío con un mensaje de aviso.
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  $ref: '#components/schemas/Products'
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    post:
+      summary: Crea y registra un producto en la base de datos. Se requiere que el usuario esté autenticado y autorizado por las políticas de permiso.
+      tags:
+       - Productos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/createProduct"
+      responses:
+        "201":
+          description: El producto ha sido validado y fue agregado exitosamente a la base de datos.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Products'
+        "400":
+          description: Error del cliente, generalemente provocado por un error en el ingreso de los datos de los campos requeridos.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "403":
+          description: Error generado cuando se intenta acceder a una consulta no autorizada por la política de permisos.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  /api/products/{pid}:
+    get:
+      summary: Se obtiene un producto de la base de datos a partir del id. 
+      tags:
+        - Productos
+      parameters: 
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto sobre el que se quiere consultar.
+        schema:
+          $type: string 
+      responses: 
+        "200":
+          description: La consulta fue respondida satisfactoriamente, y se obtuvo un producto de la base de datos partir de id. En caso de que la base de datos no contuviera items, se retorna un objeto vacío con un mensaje de aviso.
+          content:
+            application/json:
+              schema:
+                $ref: '#components/schemas/Products'
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    patch:
+      summary: Actualiza la información de un producto a partir del id. Se requiere que el usuario esté autenticado y autorizado por las políticas de permiso.
+      tags:
+       - Productos
+      parameters: 
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto que se quiere actualizar.
+        schema:
+          $type: string 
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#components/requestBodies/updateProduct"
+      responses:
+        "200":
+          description: El producto ha sido validado y fue actualizado exitosamente.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "403":
+          description: Error generado cuando se intenta acceder a una consulta no autorizada por la política de permisos.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+    delete:
+      summary: Elimina un producto de la base de datos a partir del id. Se requiere que el usuario esté autenticado y autorizado por las políticas de permiso.
+      tags:
+       - Productos
+      parameters: 
+      - name: pid
+        in: path
+        required: true
+        description: Id del producto que se quiere eliminar.
+        schema:
+          $type: string 
+      responses:
+        "200":
+          description: El producto se eliminó de la base de datos.
+        "401":
+          description: Sucede cuando se intenta realizar una consulta sin haberse autenticado en la página.
+        "403":
+          description: Error generado cuando se intenta acceder a una consulta no autorizada por la política de permisos.
+        "500":
+          description: Error interno del servidor, generalmente provocado por un fallo de conexión con la base de datos.
+  
+components:
+  schemas:
+   Products:
+    type: object
+    properties:
+      _id:
+        type: objectId
+        description: Id autogenerado de MongoDB
+      name:
+        type: string
+        description: Nombre del producto
+      description:
+        type: string
+        description: Descripción del producto
+      category:
+        type: string
+        description: Categoría del producto
+      code:
+        type: string
+        description: Código único del producto. Se encuentra indexado para la búsqueda
+      price:
+        type: number
+        description: Precio del producto
+      thumbnail:
+        type: array
+        description: Arreglo de links a las imágenes del producto
+      stock:
+        type: number
+        description: Cantidad de unidades disponibles del producto
+      owner:
+        type: string
+        description: Email del usuario que creo el producto. El valor por defecto es "admin"
+    example:
+      _id: ObjectId('645ed4022ceae6abf4feafb7')
+      name: Escritorio para PC Roma
+      description: Fabricado en aglomerado recubierto en melamina de excelente calidad
+      category: Escritorios
+      code: escr-2
+      price: 50860
+      thumbnail: ['https://loremflickr.com/640/480', 'https://loremflickr.com/640/480']
+      stock: 4
+      owner: nombre@apellido.com
+  requestBodies:
+    createProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del producto
+          required: true
+        description:
+          type: string
+          description: Descripción del producto
+          required: true
+        category:
+          type: string
+          description: Categoría del producto
+          required: true
+        code:
+          type: string
+          description: Código único del producto. Se encuentra indexado para la búsqueda
+          required: true
+        price:
+          type: number
+          description: Precio del producto
+          required: true
+        thumbnail:
+          type: array
+          description: Arreglo de links a las imágenes del producto
+        stock:
+          type: number
+          description: Cantidad de unidades disponibles del producto
+          required: true
+      example:
+        name: Escritorio para PC doble Londres
+        description: Excelente para utilizar en oficinas como puestos de trabajo o en el hogar.
+        category: Escritorios
+        code: escr-3
+        price: 92490
+        thumbnail: ['https://loremflickr.com/640/480', 'https://loremflickr.com/640/480']
+        stock: 6
+    updateProduct:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre del producto
+        description:
+          type: string
+          description: Descripción del producto
+        category:
+          type: string
+          description: Categoría del producto
+        code:
+          type: string
+          description: Código único del producto. Se encuentra indexado para la búsqueda
+        price:
+          type: number
+          description: Precio del producto
+        thumbnail:
+          type: array
+          description: Arreglo de links a las imágenes del producto
+        stock:
+          type: number
+          description: Cantidad de unidades disponibles del producto
+      example:
+        name: Escritorio para PC doble Londres
+        description: Excelente para utilizar en oficinas como puestos de trabajo o en el hogar.
+        category: Escritorios
+        code: escr-3
+        price: 92490
+        thumbnail: ['https://loremflickr.com/640/480', 'https://loremflickr.com/640/480']
+        stock: 6
