@@ -37,6 +37,15 @@ class UserManager {
             throw error;
         }
     };
+
+    delete = async (idRef) => {
+        try {
+            await User.findByIdAndDelete(idRef);
+            return 'Usuario eliminado de la base de datos';
+        } catch(error) {
+            throw error;
+        }
+    };  
 };
 
 export default UserManager;

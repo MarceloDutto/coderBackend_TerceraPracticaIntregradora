@@ -64,7 +64,19 @@ export const updateUser = async (idRef, update) => {
     try {
         const response = await um.update(idRef, update);
         const newUserInfo = new UserDTO(response);
-        return {status: 'success', payload: newUserInfo, message: 'Usario actualizado con éxito'};
+        return {status: 'success', payload: newUserInfo, message: 'Usuario actualizado con éxito'};
+    } catch(error) {
+        throw error;
+    }
+};
+
+export const deleteUser = async (idRef) => {
+    try {
+        const user = await findUserById(idRef);
+        if(Object.keys(user).length === 0) return {status: 'error', code: 404, message: 'El usuario no existe en la base de datos'};
+        
+        const response = await um.delete(idRef);
+        return {status: 'success', message: response};
     } catch(error) {
         throw error;
     }

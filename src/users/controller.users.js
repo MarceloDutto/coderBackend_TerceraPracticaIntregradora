@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, findUserById, updateUser } from "./service.users.js";
+import { registerUser, findUserById, updateUser, deleteUser } from "./service.users.js";
 import handlePolicies from "../middlewares/handlePolicies.middlewares.js";
 
 const router = Router();
@@ -22,11 +22,11 @@ router.post('/', handlePolicies('PUBLIC'), async (req, res) => {
     } catch(error) {
         req.logger.error(error);
         if(error.code === 11000) return res.status(400).json({status: 'error', error: 'Ya existe un usuario con ese correo electrónico'});
-        return res.status(500).json({status: 'error', error: error.message });
+        res.status(500).json({status: 'error', error: error.message });
     }
 });
 
-router.get('/premium/:uid', handlePolicies('USER', 'PREMIUM'), async (req, res) => {
+router.get('/premium/:uid', handlePolicies(['USER', 'PREMIUM']), async (req, res) => {
     const { uid } = req.params;
 
     if(!uid) return res.status(400).json({status: 'error', message: 'El id no es válido'});
@@ -45,7 +45,21 @@ router.get('/premium/:uid', handlePolicies('USER', 'PREMIUM'), async (req, res) 
         }
 
         const response = await updateUser(uid, user);
-        return res.json(response);
+        res.json(response);
+    } catch(error) {
+        req.logger.error(error);
+        res.status(500).json({status: 'error', error: error.message});
+    }
+});
+
+router.delete('/:uid', handlePolicies(['USER', 'PREMIUM', 'ADMIN']), async (req, res) => {
+    const { uid } = req.params;
+
+    try {
+        const response = await deleteUser(uid);
+        if(response.status === 'error') res.status(404).json({status: response.status, message: response.message});
+
+        res.json(response);
     } catch(error) {
         req.logger.error(error);
         res.status(500).json({status: 'error', error: error.message});
