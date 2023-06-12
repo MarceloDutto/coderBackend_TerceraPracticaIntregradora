@@ -25,7 +25,14 @@ const userSchema = new mongoose.Schema({
     recoveryTokenExpiration: {
         type: String,
         default: ''
-    }
+    },
+    documents: [
+        {
+            name: {type: String},
+            reference: {type: String}
+        }
+    ],
+    last_connection: Date
 });
 
 const User = mongoose.model(userCollection, userSchema);

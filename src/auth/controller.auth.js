@@ -1,5 +1,6 @@
 import { Router } from "express";
-import { resetPassword, userAuthentication, userForgotPassword } from "./service.auth.js";
+import { resetPassword, userAuthentication, userForgotPassword, logout } from "./service.auth.js";
+import handlePolicies from "../middlewares/handlePolicies.middlewares.js";
 
 const router = Router();
 
@@ -40,7 +41,10 @@ router.post('/resetPassword', async (req, res) => {
     }
 });
 
-router.get('/logout', async (req, res) => {
+router.get('/logout', handlePolicies(['USER', 'PREMIUM', 'ADMIN']) , async (req, res) => {
+    const user = req.user;
+    await logout(user.email);
+
     res.clearCookie('authToken');
     res.redirect('/login');
 })

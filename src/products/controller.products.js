@@ -1,9 +1,11 @@
 import { Router } from "express";
+import multer from "multer";
 import { getProducts, getProductById, addProduct, updateProduct, deleteProduct, deleteAllProducts } from "./service.products.js";
-import { uploader } from "../utils/multer.utils.js";
+import { prodImgStorage } from "../utils/multer.utils.js";
 import handlePolicies from "../middlewares/handlePolicies.middlewares.js";
 
 const router = Router();
+const uploader = multer({storage: prodImgStorage})
 
 router.get('/', async (req, res) => {
     const limit = req.query.limit || 5;

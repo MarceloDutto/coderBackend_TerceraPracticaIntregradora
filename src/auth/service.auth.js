@@ -11,6 +11,9 @@ export const userAuthentication = async (email, password) => {
         if(!user) return {status: 'failed', message: 'El usuario y la contraseña no coinciden'};
         if(!isValidPassword(user, password)) return {status: 'failed', message: 'El usuario y la contraseña no coinciden'};
 
+        user.last_connection = new Date();
+        await updateUser(user.id, user);
+        
         const data = {
             first_name: user.first_name,
             last_name: user.last_name,
@@ -24,6 +27,16 @@ export const userAuthentication = async (email, password) => {
         return {status: 'success', message: 'Usuario autenticado', payload: token};
     } catch(error) {
         throw error;
+    }
+};
+
+export const logout = async (email) => {
+    try {
+        const user = await findUserByEmail(email);
+        user.last_connection = new Date;
+        await updateUser(user.id, user);
+    } catch(error) {
+        throw error
     }
 };
 

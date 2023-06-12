@@ -1,8 +1,15 @@
 import { Router } from "express";
-import { registerUser, findUserById, updateUser, deleteUser } from "./service.users.js";
+import multer from "multer";
+import { registerUser, findUserById, updateUser, uploadUserDocumentation, deleteUser } from "./service.users.js";
 import handlePolicies from "../middlewares/handlePolicies.middlewares.js";
+import { docStorage } from "../utils/multer.utils.js";
 
 const router = Router();
+const uploader = multer({storage: docStorage}).fields([
+    {name: 'identity', maxCount: 1},
+    {name: 'address', maxCount: 1},
+    {name: 'account', maxCount: 1},
+]);
 
 router.post('/', handlePolicies('PUBLIC'), async (req, res) => {
     const { first_name, last_name, age, email, password } = req.body;
@@ -26,6 +33,28 @@ router.post('/', handlePolicies('PUBLIC'), async (req, res) => {
     }
 });
 
+router.post('/:uid/documents', handlePolicies(['USER']), uploader, async (req, res) => {
+    const { uid } = req.params;
+    if(!uid) return res.status(400).json({status: 'error', message: 'El id no es válido'});
+
+    const idFile = req.files['identity']? req.files['identity'][0] : null;
+    const addressFile = req.files['address']? req.files['address'][0] : null;
+    const accountFile = req.files['account']? req.files['account'][0] : null;
+
+    if(!idFile && !addressFile && !accountFile) return res.status(400).json({status: 'error', message: 'No se han seleccionado archivos para ser subidos'});
+
+    try {
+        const user = await findUserById(uid)
+        if(!user) return res.status(400).json({status: 'error', message: 'No existe un usuario registrado con ese id'});
+
+        const response = await uploadUserDocumentation(user, idFile, addressFile, accountFile);
+        res.json({status: 'success', message: response.message});
+    } catch(error) {
+        req.logger.error(error);
+        res.status(500).json({status: 'error', error: error.message});
+    }
+});
+
 router.get('/premium/:uid', handlePolicies(['USER', 'PREMIUM']), async (req, res) => {
     const { uid } = req.params;
 
@@ -37,10 +66,19 @@ router.get('/premium/:uid', handlePolicies(['USER', 'PREMIUM']), async (req, res
 
         switch (user.role) {
             case 'user':
-                user.role = 'premium'
+                const docs = [];
+                user.documents.forEach(obj => {
+                    docs.push(obj.name);
+                });
+
+                if(docs.includes('identification' && 'proofOfAddress' && 'bankStatement')) {
+                    user.role = 'premium';
+                } else {
+                    return res.status(400).json({status: 'error', message: 'No se ha terminado de procesar la documentación necesaria. Revise los requisitos.'})
+                };
                 break;
             case 'premium':
-                user.role = 'user'
+                user.role = 'user';
                 break;
         }
 

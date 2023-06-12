@@ -2,6 +2,8 @@ import UserManager from "../dao/mongoDB/persistence/usersManager.mongoDB.js";
 import { addCart } from "../carts/service.carts.js";
 import { createHash } from "../utils/bcrypt.utils.js";
 import UserDTO from "../DTOs/users.dto.js";
+import fs from 'fs'
+import __dirname from "../utils/dirname.utils.js";
 
 const um = new UserManager();
 
@@ -21,7 +23,8 @@ export const registerUser = async (newUserInfo) => {
             age,
             email,
             password: createHash(password),
-            cart: newUserCart.payload._id
+            cart: newUserCart.payload._id,
+            last_connection: new Date
         };
                 
         const response = await um.register(newUserData);
@@ -65,6 +68,75 @@ export const updateUser = async (idRef, update) => {
         const response = await um.update(idRef, update);
         const newUserInfo = new UserDTO(response);
         return {status: 'success', payload: newUserInfo, message: 'Usuario actualizado con éxito'};
+    } catch(error) {
+        throw error;
+    }
+};
+
+export const uploadUserDocumentation = async (user, idFile, addressFile, accountFile) => {
+    try {
+        if(idFile) {
+            const docs = user.documents;
+            for(let i = 0; i < docs.length; i++) {
+                let obj = docs[i];
+
+                if(obj.name === 'identification') {
+                    user.documents.splice(i, 1);
+                    fs.unlinkSync(obj.reference);
+                }
+            };
+
+            const filePath = idFile.filename
+            const relativePath = __dirname + `/documents/${filePath}`;
+            const doc = {
+                name: 'identification',
+                reference: relativePath
+            }
+            user.documents.push(doc)
+        };
+
+        if(addressFile) {
+            const docs = user.documents;
+            for(let i = 0; i < docs.length; i++) {
+                let obj = docs[i];
+
+                if(obj.name === 'proofOfAddress') {
+                    user.documents.splice(i, 1);
+                    fs.unlinkSync(obj.reference);
+                }
+            };
+
+            const filePath = addressFile.filename
+            const relativePath = __dirname + `/documents/${filePath}`;
+            const doc = {
+                name: 'proofOfAddress',
+                reference: relativePath
+            }
+            user.documents.push(doc)
+        };
+
+        if(accountFile) {
+            const docs = user.documents;
+            for(let i = 0; i < docs.length; i++) {
+                let obj = docs[i];
+
+                if(obj.name === 'bankStatement') {
+                    user.documents.splice(i, 1);
+                    fs.unlinkSync(obj.reference);
+                }
+            };
+
+            const filePath = accountFile.filename
+            const relativePath = __dirname + `/documents/${filePath}`;
+            const doc = {
+                name: 'bankStatement',
+                reference: relativePath
+            }
+            user.documents.push(doc)
+        };
+
+        await updateUser(user.id, user);
+        return {message: 'Documentación guardada con éxito'}
     } catch(error) {
         throw error;
     }
